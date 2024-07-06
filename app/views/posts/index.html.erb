@@ -1,0 +1,18 @@
+<h1>投稿一覧</h1>
+
+<%= link_to '新規投稿', new_post_path %>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= link_to post.title, post %>
+      <% if post.link.present? %>
+        (<%= link_to(post.link, target: "_blank", rel: "noopener noreferrer") do %>
+        <i class="fab fa-youtube"></i> YouTube公式ch
+        <% end %>)
+      <% end %>
+      <%= link_to '編集', edit_post_path(post) %>
+      <%= link_to '削除', post, method: :delete, data: { confirm: '本当に削除しますか?' } %>
+    </li>
+  <% end %>
+</ul>

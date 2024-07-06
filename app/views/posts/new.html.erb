@@ -1,0 +1,36 @@
+<h1>新規投稿</h1>
+
+<%= form_with model: @post, local: true do |form| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title, "バンド名" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body, "特徴、おすすめの曲など" %>
+    <%= form.text_area :body %>
+  </div>
+
+  <div class="field">
+    <%= form.label :link, "YouTube公式chのリンク" %>
+    <%= form.url_field :link %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "投稿する" %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', posts_path %>

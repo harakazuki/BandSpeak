@@ -1,0 +1,12 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.body %></p>
+<p>
+  <% if @post.link.present? %>
+    <a href="<%= @post.link %>" target="_blank" rel="noopener noreferrer"><%= @post.link %></a>
+  <% else %>
+    No link provided
+  <% end %>
+</p>
+<p>Posted by: <%= @post.user.name %></p>
+<%= link_to '編集', edit_post_path(@post) %>
+<%= link_to '戻る', posts_path %>
