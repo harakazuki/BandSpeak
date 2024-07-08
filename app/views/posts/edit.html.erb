@@ -1,16 +1,23 @@
 <h1>投稿編集</h1>
 
 <%= form_with model: @post, local: true do |form| %>
-  <div>
-    <%= form.label :title %>
+    <div class="field">
+    <%= form.label :title, "バンド名" %>
     <%= form.text_field :title %>
   </div>
-  <div>
-    <%= form.label :body %>
+
+  <div class="field">
+    <%= form.label :body, "特徴、おすすめの曲など" %>
     <%= form.text_area :body %>
   </div>
-  <div>
-    <%= form.submit %>
+
+  <div class="field">
+    <%= form.label :link, "YouTube公式chのリンク" %>
+    <%= form.url_field :link %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "編集を完了する" %>
   </div>
 <% end %>
 

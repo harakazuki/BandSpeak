@@ -11,8 +11,10 @@
         <i class="fab fa-youtube"></i> YouTube公式ch
         <% end %>)
       <% end %>
-      <%= link_to '編集', edit_post_path(post) %>
-      <%= link_to '削除', post, method: :delete, data: { confirm: '本当に削除しますか?' } %>
+      <% if post.user == current_user %>
+        <%= link_to '編集', edit_post_path(post) %>
+        <%= link_to '削除', @post, method: :delete, data: { confirm: '本当に削除しますか?' } %>
+      <% end %>
     </li>
   <% end %>
 </ul>

@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = current_user.posts.new(post_params)
     if @post.save
       redirect_to posts_path, notice: '投稿に成功しました。'
     else
@@ -26,7 +26,6 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_params)
       redirect_to post_path, notice: '投稿を編集しました。'
     else
@@ -35,9 +34,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
-    redirect_to posts_url, notice: '投稿を削除しました。'
+    redirect_to posts_path, notice: '投稿を削除しました。'
   end
 
   private
@@ -50,5 +48,5 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :body, :link)
     end
 
-    
+  
 end
