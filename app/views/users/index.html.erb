@@ -10,7 +10,8 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
+        <td><%= link_to user.name, user_path(user) %></td>
+        <td>投稿数<%= user.posts.count %></td>
         <td><%= user.created_at.strftime("%Y-%m-%d %H:%M") %></td>
       </tr>
     <% end %>
