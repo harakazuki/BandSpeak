@@ -6,6 +6,7 @@
   <% @posts.each do |post| %>
     <li>
       <%= link_to post.title, post %>
+      <p>タグ：<%= post.tag %></p>
       <% if post.link.present? %>
         (<%= link_to(post.link, target: "_blank", rel: "noopener noreferrer") do %>
         <i class="fab fa-youtube"></i> YouTube公式ch

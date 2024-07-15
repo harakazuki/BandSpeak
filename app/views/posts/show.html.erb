@@ -1,4 +1,8 @@
 <h1><%= @post.title %></h1>
+<p>
+  タグ:
+  <%= @post.tag %>
+</p>
 <p><%= @post.body %></p>
 <p>
   <% if @post.link.present? %>
@@ -7,7 +11,7 @@
     No link provided
   <% end %>
 </p>
-<p>投稿者: <%= @post.user.name %></p>
+<p>投稿者: <%= @post.user.name %>さん</p>
 <% if @post.user == current_user %>
   <%= link_to '編集', edit_post_path(@post) %>
   <%= link_to '削除', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか?' } %>
