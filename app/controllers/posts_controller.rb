@@ -37,6 +37,11 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to posts_path, notice: '投稿を削除しました。'
   end
+  
+  def search
+    @query = params[:query]
+    @posts = Post.where("title LIKE ? OR body LIKE ?", "%#{@query}%", "%#{@query}%")
+  end
 
   private
 

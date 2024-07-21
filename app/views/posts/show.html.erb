@@ -7,15 +7,13 @@
 <p>
   <% if @post.link.present? %>
     <a href="<%= @post.link %>" target="_blank" rel="noopener noreferrer"><%= @post.link %></a>
-  <% else %>
-    No link provided
   <% end %>
 </p>
-<p>投稿者: <%= @post.user.name %>さん</p>
+<p>投稿者: <%= link_to "#{@post.user.name}さん", user_path(@post.user) %></p>
 <h4>コメント</h4>
 <%= form_with(model: [ @post, @post.comments.build ], local: true) do |form| %>
   <div class="field">
-    <%= form.label :content, "内容" %>
+    <%= form.label :content, "本文" %>
     <%= form.text_area :content %>
   </div>
   <div class="actions">
@@ -27,7 +25,7 @@
 <% @post.comments.each do |comment| %>
   <p>
     <% if comment.user.present? %>
-      <%= link_to comment.user.name, user_path(comment.user) %>:
+      <%= link_to "#{comment.user.name}さん", user_path(comment.user) %>:
     <% end %>
     <%= comment.content %>
   </p>

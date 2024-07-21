@@ -1,0 +1,14 @@
+<h1>検索結果</h1>
+
+<% if @posts.any? %>
+  <ul>
+    <% @posts.each do |post| %>
+      <li>
+        <h1><%= link_to post.title, post_path(post) %></h1>
+        <p><%= truncate(post.body, length: 100) %></p>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>検索結果が見つかりませんでした。</p>
+<% end %>
