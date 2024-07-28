@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
    before_action :authenticate_user!, only: [:edit, :update]
+   before_action :guest, only: [:edit, :update]
   
   def index
     @users = User.all
@@ -27,7 +28,17 @@ class UsersController < ApplicationController
     @liked_posts = current_user.liked_posts
   end
   
+  
+  
+  private
+
   def user_params
     params.require(:user).permit(:name, :email, :bio)
+  end
+  
+  def guest
+    if current_user&.guest?
+      redirect_to root_path, alert: 'ゲストユーザーはユーザー編集ページにアクセスできません。'
+    end
   end
 end
