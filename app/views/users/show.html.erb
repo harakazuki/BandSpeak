@@ -1,6 +1,15 @@
 <h3><%= @user.name %> さん</h3>
 
-<h4>投稿一覧</h4>
+<p><strong>自己紹介文:</strong> <%= @user.bio %></p>
+<% if @user == current_user %>
+  <li><%= link_to 'プロフィールを編集', edit_user_path(@user) %></li>
+<% end %>
+
+<% if @user == current_user %>
+  <li><%= link_to 'いいねした投稿', likes_user_path(@user) %></li>
+<% end %>
+
+<h4>おすすめのバンド</h4>
 <ul>
   <% @posts.each do |post| %>
     <li><%= link_to post.title, post_path(post) %> - <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></li>

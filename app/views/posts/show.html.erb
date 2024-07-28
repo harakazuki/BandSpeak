@@ -10,6 +10,18 @@
   <% end %>
 </p>
 <p>投稿者: <%= link_to "#{@post.user.name}さん", user_path(@post.user) %></p>
+<p>
+  <i class="fa-solid fa-thumbs-up"></i><%= @post.likes.count %>
+  <% if @post.likes.where(user_id: current_user.id).exists? %>
+    <%= link_to post_like_path(@post, @post.likes.where(user_id: current_user.id).first), method: :delete do %>
+      <i class="fa-solid fa-thumbs-up"></i> イイねを解除
+    <% end %>
+  <% else %>
+    <%= link_to post_likes_path(@post), method: :post do %>
+      <i class="fa-solid fa-thumbs-up"></i> イイね！
+    <% end %>
+  <% end %>
+</p>
 <h4>コメント</h4>
 <%= form_with(model: [ @post, @post.comments.build ], local: true) do |form| %>
   <div class="field">
@@ -35,4 +47,5 @@
   <%= link_to '編集', edit_post_path(@post) %>
   <%= link_to '削除', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか?' } %>
 <% end %>
+
 <%= link_to '戻る', posts_path %>

@@ -1,0 +1,14 @@
+<h1>いいねした投稿</h1>
+
+<% if @liked_posts.any? %>
+  <ul>
+    <% @liked_posts.each do |post| %>
+      <li>
+        <%= link_to post.title, post_path(post) %>
+        <p><%= post.content.truncate(100) %></p>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>まだいいねした投稿はありません。</p>
+<% end %>
