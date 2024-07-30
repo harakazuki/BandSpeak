@@ -1,24 +1,31 @@
 <h1>投稿編集</h1>
 
-<%= form_with model: @post, local: true do |form| %>
-    <div class="field">
-    <%= form.label :title, "バンド名" %>
-    <%= form.text_field :title %>
+<%= form_with model: @post, local: true do |f| %>
+
+<div class="form-group">
+    <%= f.label :title, "バンド名" %>
+    <%= f.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :body, "特徴、おすすめの曲など" %>
-    <%= form.text_area :body %>
+  <div class="form-group">
+    <%= f.label :tag, "タグ" %>
+    <%= f.select :tag, Post.tag_options, prompt: 'タグを選択してください', class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :link, "YouTube公式chのリンク" %>
-    <%= form.url_field :link %>
+  <div class="form-group">
+    <%= f.label :body, "特徴、おすすめの曲など" %>
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :link, "YouTube公式chのリンク" %>
+    <%= f.url_field :link, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit "編集を完了する" %>
+    <%= f.submit "編集を完了する", class: 'btn btn-primary' %>
   </div>
 <% end %>
+
 
 <%= link_to '戻る', posts_path %>

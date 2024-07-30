@@ -1,51 +1,128 @@
-<h1><%= @post.title %></h1>
-<p>
-  タグ:
-  <%= @post.tag %>
-</p>
-<p><%= @post.body %></p>
-<p>
-  <% if @post.link.present? %>
-    <a href="<%= @post.link %>" target="_blank" rel="noopener noreferrer"><%= @post.link %></a>
-  <% end %>
-</p>
-<p>投稿者: <%= link_to "#{@post.user.name}さん", user_path(@post.user) %></p>
-<p>
-  <i class="fa-solid fa-thumbs-up"></i><%= @post.likes.count %>
-  <% if @post.likes.where(user_id: current_user.id).exists? %>
-    <%= link_to post_like_path(@post, @post.likes.where(user_id: current_user.id).first), method: :delete do %>
-      <i class="fa-solid fa-thumbs-up"></i> イイねを解除
-    <% end %>
-  <% else %>
-    <%= link_to post_likes_path(@post), method: :post do %>
-      <i class="fa-solid fa-thumbs-up"></i> イイね！
-    <% end %>
-  <% end %>
-</p>
-<h4>コメント</h4>
-<%= form_with(model: [ @post, @post.comments.build ], local: true) do |form| %>
-  <div class="field">
-    <%= form.label :content, "本文" %>
-    <%= form.text_area :content %>
+<div class="container mt-5 post-container">
+  <div class="post-header mb-4">
+    <h1><%= @post.title %></h1>
+    <p class="post-tag">タグ: <%= @post.tag %></p>
   </div>
-  <div class="actions">
-    <%= form.submit 'コメントする' %>
-  </div>
-<% end %>
 
-<h4>コメント一覧</h4>
-<% @post.comments.each do |comment| %>
-  <p>
-    <% if comment.user.present? %>
-      <%= link_to "#{comment.user.name}さん", user_path(comment.user) %>:
+  <div class="post-body mb-4">
+    <p><%= @post.body %></p>
+    <% if @post.link.present? %>
+      <p>
+        <a href="<%= @post.link %>" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-youtube"></i> YouTube公式ch
+        </a>
+      </p>
     <% end %>
-    <%= comment.content %>
-  </p>
-<% end %>
+  </div>
 
-<% if @post.user == current_user %>
-  <%= link_to '編集', edit_post_path(@post) %>
-  <%= link_to '削除', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか?' } %>
-<% end %>
+  <div class="post-footer mb-4">
+    <p>投稿者: <%= link_to "#{@post.user.name}さん", user_path(@post.user) %></p>
+    <div class="d-flex align-items-center">
+      <div class="likes me-3">
+        <i class="fa-solid fa-thumbs-up"></i><span class="ms-2 me-2"><%= @post.likes.count %></span>
+        <% if @post.likes.where(user_id: current_user.id).exists? %>
+          <%= link_to post_like_path(@post, @post.likes.where(user_id: current_user.id).first), method: :delete, class: "btn btn-link p-0" do %>
+            <i class="fa-solid fa-thumbs-up"></i>イイねを解除
+          <% end %>
+        <% else %>
+          <%= link_to post_likes_path(@post), method: :post, class: "btn btn-link p-0" do %>
+            <i class="fa-solid fa-thumbs-up"></i>イイね！
+          <% end %>
+        <% end %>
+      </div>
+      <% if @post.user == current_user %>
+        <%= link_to '編集', edit_post_path(@post), class: "btn btn-warning me-2" %>
+        <%= link_to '削除', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか?' }, class: "btn btn-danger" %>
+      <% end %>
+      <%= link_to '戻る', posts_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
 
-<%= link_to '戻る', posts_path %>
+  <div class="comments-section mt-4">
+    <%= form_with(model: [ @post, @post.comments.build ], local: true, class: "new-comment-form mb-4") do |form| %>
+      <div class="field mb-2">
+        <%= form.text_area :content, class: "form-control", placeholder: "コメントを入力..." %>
+      </div>
+      <div class="actions">
+        <%= form.submit 'コメントする', class: "btn btn-primary" %>
+      </div>
+    <% end %>
+    <h4 class="mb-4">コメント一覧</h4>
+    <% @post.comments.each do |comment| %>
+      <div class="comment mb-3 p-3 bg-white border rounded">
+        <% if comment.user.present? %>
+          <p class="comment-user fw-bold"><%= link_to "#{comment.user.name}さん", user_path(comment.user) %>:</p>
+        <% end %>
+        <p class="comment-content"><%= comment.content %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .post-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .post-header, .post-body, .post-footer {
+    margin-bottom: 20px;
+  }
+  .post-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+  .post-header .post-tag {
+    font-size: 1.2em;
+    color: #666;
+  }
+  .post-body p {
+    font-size: 1.2em;
+  }
+  .post-footer .likes {
+    display: flex;
+    align-items: center;
+  }
+  .post-footer .likes i {
+    margin-right: 5px;
+  }
+  .post-footer .likes .like-count {
+    margin-right: 10px;
+  }
+  .post-footer .actions a {
+    margin-left: 10px;
+  }
+  .comments-section {
+    margin-top: 40px;
+  }
+  .comments-section h4 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  .comment {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+  }
+  .comment p {
+    margin: 0;
+  }
+  .comment-user {
+    font-weight: bold;
+  }
+  .comment-content {
+    margin-top: 5px;
+  }
+  .new-comment-form {
+    margin-top: 20px;
+  }
+  .new-comment-form .field,
+  .new-comment-form .actions {
+    margin-bottom: 10px;
+  }
+</style>

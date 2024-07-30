@@ -1,14 +1,35 @@
 <h1>検索結果</h1>
 
-<% if @posts.any? %>
-  <ul>
+<%= form_with url: search_posts_path, method: :get, local: true do %>
+  <div class="form-group d-flex align-items-center">
+    <%= text_field_tag :query, params[:query], placeholder: "キーワードで検索...", class: "form-control me-2", style: "max-width: 300px;" %>
+    <%= select_tag :tag, options_for_select([['タグを選択', '']] + Post.tags.keys.map { |tag| [tag.humanize, tag] }), include_blank: true, class: "form-control me-2" %>
+    <%= submit_tag "検索", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= link_to '新規投稿', new_post_path, class: "btn btn-primary mb-3" %>
+
+<% if @posts.present? && @posts.any? %>
+  <ul class="list-unstyled">
     <% @posts.each do |post| %>
-      <li>
-        <h1><%= link_to post.title, post_path(post) %></h1>
-        <p><%= truncate(post.body, length: 100) %></p>
+      <li class="post-item mb-4 p-3 border rounded">
+        <%= link_to post.title, post, class: "h4 text-dark" %>
+        <p>タグ：<%= post.tag %></p>
+        <% if post.link.present? %>
+          (<%= link_to post.link, target: "_blank", rel: "noopener noreferrer", class: "text-primary" do %>
+            <i class="fab fa-youtube"></i> YouTube公式ch
+          <% end %>)
+        <% end %>
+        <% if post.user == current_user %>
+          <div class="actions mt-2">
+            <%= link_to '編集', edit_post_path(post), class: "btn btn-warning btn-sm" %>
+            <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか?' }, class: "btn btn-danger btn-sm" %>
+          </div>
+        <% end %>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p>検索結果が見つかりませんでした。</p>
+  <p>検索結果がありません。</p>
 <% end %>

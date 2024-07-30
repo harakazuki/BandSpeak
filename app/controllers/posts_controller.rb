@@ -4,17 +4,19 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    @posts = @posts.where("title LIKE ?", "%#{params[:query]}%") if params[:query].present?
+    @posts = @posts.where(tag: params[:tag]) if params[:tag].present?
   end
 
   def show
   end
 
   def new
-    @post = current_user.posts.build
+    @post = Post.new
   end
 
   def create
-    @post = current_user.posts.new(post_params)
+    @post = current_user.posts.build(post_params)
     if @post.save
       redirect_to posts_path, notice: '投稿に成功しました。'
     else
@@ -39,10 +41,19 @@ class PostsController < ApplicationController
   end
   
   def search
-    @query = params[:query]
-    @posts = Post.where("title LIKE ? OR body LIKE ?", "%#{@query}%", "%#{@query}%")
-  end
+   @posts = Post.all
 
+    if params[:tag].present?
+      @posts = @posts.where(tag: Post.tags[params[:tag]])
+    end
+
+    if params[:query].present?
+      @posts = @posts.where("title LIKE ?", "%#{params[:query]}%")
+    end
+
+    render :search
+  end
+  
   private
 
     def set_post
@@ -53,5 +64,4 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :body, :link, :tag)
     end
 
-  
 end
