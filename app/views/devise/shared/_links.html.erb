@@ -6,13 +6,13 @@
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <div class="centered-link isolated-link">
-    <%= link_to "サインアップ", new_registration_path(resource_name), class: "link-button" %>
+    <%= link_to "サインアップ", new_registration_path(resource_name), class: "link-button-new" %>
   </div>
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
   <div class="centered-link">
-    <%= link_to "パスワードをお忘れですか?", new_password_path(resource_name), class: "link-button" %>
+    <%= link_to "パスワードをお忘れですか?", new_password_path(resource_name), class: "link-button-forgot" %>
   </div>
 <% end %>
 
@@ -45,7 +45,33 @@
     text-align: center;
     text-decoration: none;
     color: white;
+    background-color: royalblue;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .link-button-new {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
     background-color: darkblue;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .link-button-forgot {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: black;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
   }

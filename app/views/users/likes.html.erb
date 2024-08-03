@@ -1,14 +1,58 @@
-<h1>イイねした投稿</h1>
+<h1 class="page-title">イイねした投稿</h1>
 
 <% if @liked_posts.any? %>
-  <ul>
+  <ul class="list-unstyled">
     <% @liked_posts.each do |post| %>
-      <li>
-        <%= link_to post.title, post_path(post) %>
-        <p><%= post.content.truncate(100) %></p>
+      <li class="post-item mb-4 p-3 border rounded">
+        <%= link_to post.title, post, class: "h4 text-dark" %>
+        <p>タグ：<%= post.tag %></p>
+        <% if post.link.present? %>
+          <%= link_to post.link, target: "_blank", rel: "noopener noreferrer", class: "text-primary" do %>
+            <i class="fab fa-youtube"></i> YouTube公式ch
+          <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p>イイねした投稿はありません。</p>
+  <p class="no-posts">イイねした投稿はありません。</p>
 <% end %>
+
+<style>
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.list-unstyled {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.post-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.text-dark {
+  color: #343a40;
+}
+
+.text-primary {
+  color: #007bff;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.no-posts {
+  text-align: center;
+  color: #888;
+  font-size: 1.25rem;
+}
+</style>
