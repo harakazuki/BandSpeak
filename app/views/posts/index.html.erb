@@ -16,9 +16,9 @@
       <%= link_to post.title, post, class: "h4 text-dark" %>
       <p>タグ：<%= post.tag %></p>
       <% if post.link.present? %>
-        (<%= link_to post.link, target: "_blank", rel: "noopener noreferrer", class: "text-primary" do %>
+        <%= link_to post.link, target: "_blank", rel: "noopener noreferrer", class: "text-primary" do %>
           <i class="fab fa-youtube"></i> YouTube公式ch
-        <% end %>)
+        <% end %>
       <% end %>
       <% if post.user == current_user %>
         <div class="actions mt-2">

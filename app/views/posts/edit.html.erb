@@ -1,13 +1,23 @@
 <h1>投稿編集</h1>
 
 <%= form_with model: @post, local: true do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<div class="form-group">
+  <div class="form-group small-field">
     <%= f.label :title, "バンド名" %>
     <%= f.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group small-field">
     <%= f.label :tag, "タグ" %>
     <%= f.select :tag, Post.tag_options, prompt: 'タグを選択してください', class: 'form-control' %>
   </div>
@@ -22,10 +32,32 @@
     <%= f.url_field :link, class: 'form-control' %>
   </div>
 
-  <div class="actions">
+  <div class="form-group">
     <%= f.submit "編集を完了する", class: 'btn btn-primary' %>
   </div>
 <% end %>
 
+<div class="form-group">
+  <%= link_to '戻る', posts_path, class: 'btn btn-secondary' %>
+</div>
 
-<%= link_to '戻る', posts_path %>
+<style>
+  .small-field .form-control {
+    max-width: 200px;
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+</style>

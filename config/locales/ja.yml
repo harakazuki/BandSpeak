@@ -3,25 +3,15 @@ ja:
     errors:
       messages:
         blank: "を入力してください"
+        valid: "は無効です"
         too_short: "は %{count} 文字以上で入力してください"
         too_long: "は %{count} 文字以内で入力してください"
-        # 他のエラーメッセージも追加できます
+        record_invalid: "入力内容に問題があります。"
+        restricted: "このフィールドは制限されています。"
 
-  attributes:
-    post:
-      title: "バンド名"
-      body: "おすすめの曲、特徴など"
-      link: "YouTube公式chリンク"
-
-  errors:
-    messages:
-      record_invalid: "入力内容に問題があります。"
-      restricted: "このフィールドは制限されています。"
-      # 他のエラーメッセージも追加できます
-
-  activerecord:
     attributes:
       post:
         title: "バンド名"
         body: "おすすめの曲、特徴など"
         link: "YouTube公式chリンク"
+        tag: "タグ"

@@ -1,25 +1,81 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "ログイン", new_session_path(resource_name) %><br />
+  <div class="centered-link isolated-link">
+    <%= link_to "ログイン", new_session_path(resource_name), class: "link-button" %>
+  </div>
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "サインアップ", new_registration_path(resource_name) %><br />
+  <div class="centered-link isolated-link">
+    <%= link_to "サインアップ", new_registration_path(resource_name), class: "link-button" %>
+  </div>
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "パスワードをお忘れですか?", new_password_path(resource_name) %><br />
+  <div class="centered-link">
+    <%= link_to "パスワードをお忘れですか?", new_password_path(resource_name), class: "link-button" %>
+  </div>
 <% end %>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
+  <div class="centered-link">
+    <%= link_to "確認メールを再送信する", new_confirmation_path(resource_name), class: "link-button" %>
+  </div>
 <% end %>
 
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+  <div class="centered-link">
+    <%= link_to "ロック解除のメールが届かない", new_unlock_path(resource_name), class: "link-button" %>
+  </div>
 <% end %>
 
 <%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
-  <% end %>
+  <div class="centered-link">
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-omniauth", data: { turbo: false } %>
+    <% end %>
+  </div>
 <% end %>
+
+<style>
+  .link-button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: darkblue;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .link-button:hover {
+    background-color: navy;
+  }
+
+  .btn-omniauth {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: darkgreen;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn-omniauth:hover {
+    background-color: green;
+  }
+
+  .centered-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .isolated-link {
+    margin-top: 40px;
+  }
+</style>
+

@@ -1,6 +1,6 @@
 <h1>新規投稿</h1>
 
-<%= form_with model: @post, local: true do |form| %>
+<%= form_with model: @post, local: true do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -13,27 +13,38 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= form.label :title, "バンド名" %>
-    <%= form.text_field :title, class: "form-control" %>
+  <div class="form-group small-field">
+    <%= f.label :title, "バンド名" %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
   
-  <div class="form-group">
-    <%= form.label :tag, "タグ" %>
-    <%= form.select :tag, Post.tags.keys.map { |tag| [tag, tag] }, { include_blank: "タグを選択してください" }, class: "form-control" %>
+  <div class="form-group small-field">
+    <%= f.label :tag, "タグ" %>
+    <%= f.select :tag, Post.tags.keys.map { |tag| [tag, tag] }, { include_blank: "タグを選択してください" }, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :body, "おすすめの曲、特徴など" %>
-    <%= form.text_area :body, class: "form-control" %>
+    <%= f.label :body, "おすすめの曲、特徴など" %>
+    <%= f.text_area :body, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :link, "YouTube公式ch" %>
-    <%= form.text_field :link, class: "form-control" %>
+    <%= f.label :link, "YouTube公式ch" %>
+    <%= f.text_field :link, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.submit "投稿する", class: "btn btn-primary" %>
+    <%= f.submit "投稿する", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<style>
+  .small-field .form-control {
+    max-width: 200px;
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+</style>
