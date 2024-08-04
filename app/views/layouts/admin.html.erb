@@ -8,11 +8,25 @@
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-  <% if admin_signed_in? %>
-    <div class="text-right">
-      <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
-    </div>
-  <% end %>
+  <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <%= link_to 'BandSpeak', about_path, class: "navbar-brand" %>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+              <% if admin_signed_in? %>
+               <div class="text-right">
+                 <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link text-light" %>
+               </div>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
   <%= yield %>
 </body>
 </html>
