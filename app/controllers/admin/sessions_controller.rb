@@ -2,9 +2,9 @@
 
 class Admin::SessionsController < Devise::SessionsController
   layout 'admin'
-  before_action :configure_sign_in_params, only: [:create]
   # before_action :configure_sign_in_params, only: [:create]
-  
+  # before_action :configure_sign_in_params, only: [:create]
+
   # GET /resource/sign_in
   # def new
   #   super
@@ -28,10 +28,10 @@ class Admin::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(resource_or_scope)
     new_admin_session_path # ログアウト後にリダイレクトするパス
   end
-  
-  def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password, :remember_me])
-  end
+
+  # def configure_sign_in_params
+  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password, :remember_me])
+  # end
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])

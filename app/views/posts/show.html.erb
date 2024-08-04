@@ -19,32 +19,36 @@
     <p>投稿者: <%= link_to "#{@post.user.name}さん", user_path(@post.user) %></p>
     <div class="d-flex align-items-center">
       <div class="likes me-3">
-        <i class="fa-solid fa-thumbs-up"></i><span class="ms-2 me-2"><%= @post.likes.count %></span>
-        <% if @post.likes.where(user_id: current_user.id).exists? %>
-          <%= link_to post_like_path(@post, @post.likes.where(user_id: current_user.id).first), method: :delete, class: "btn btn-link p-0" do %>
-            <i class="fa-solid fa-thumbs-up"></i>イイねを解除
+        <div class="like-count">
+          <i class="fa-solid fa-thumbs-up"></i><span class="ms-2"><%= @post.likes.count %></span>
+        </div>
+        <div class="like-button mt-2">
+          <% if @post.likes.where(user_id: current_user.id).exists? %>
+            <%= link_to post_like_path(@post, @post.likes.where(user_id: current_user.id).first), method: :delete, class: "btn btn-link p-0" do %>
+              <i class="fa-solid fa-thumbs-up"></i>イイねを解除
+            <% end %>
+          <% else %>
+            <%= link_to post_likes_path(@post), method: :post, class: "btn btn-link p-0" do %>
+              <i class="fa-solid fa-thumbs-up"></i>イイね！
+            <% end %>
           <% end %>
-        <% else %>
-          <%= link_to post_likes_path(@post), method: :post, class: "btn btn-link p-0" do %>
-            <i class="fa-solid fa-thumbs-up"></i>イイね！
-          <% end %>
-        <% end %>
+        </div>
       </div>
       <% if @post.user == current_user %>
         <%= link_to '編集', edit_post_path(@post), class: "btn btn-warning me-2" %>
         <%= link_to '削除', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか?' }, class: "btn btn-danger" %>
       <% end %>
-      <%= link_to '戻る', posts_path, class: "btn btn-secondary" %>
+      <%= link_to '戻る', posts_path, class: "btn btn-secondary ms-auto" %>
     </div>
   </div>
 
   <div class="comments-section mt-4">
-    <%= form_with(model: [ @post, @post.comments.build ], local: true, class: "new-comment-form mb-4") do |form| %>
+    <%= form_with model: @comment, url: post_comments_path(@post), class: "new-comment-form mb-4" do |f| %>
       <div class="field mb-2">
-        <%= form.text_area :content, class: "form-control", placeholder: "コメントを入力..." %>
+        <%= f.text_area :content, class: "form-control", placeholder: "コメントを入力..." %>
       </div>
       <div class="actions">
-        <%= form.submit 'コメントする', class: "btn btn-primary" %>
+        <%= f.submit 'コメントする', class: "btn btn-primary" %>
       </div>
     <% end %>
     <h4 class="mb-4">コメント一覧</h4>
@@ -53,7 +57,13 @@
         <% if comment.user.present? %>
           <p class="comment-user fw-bold"><%= link_to "#{comment.user.name}さん", user_path(comment.user) %>:</p>
         <% end %>
-        <p class="comment-content"><%= comment.content %></p>
+        <p class="comment-content"><%= simple_format(comment.content, sanitize: true) %></p>
+        <% if comment.user == current_user %>
+          <div class="comment-actions mt-2">
+            <%= link_to '編集', edit_post_comment_path(@post, comment), class: "btn btn-warning btn-sm me-2" %>
+            <%= link_to '削除', post_comment_path(@post, comment), method: :delete, data: { confirm: '本当に削除しますか?' }, class: "btn btn-danger btn-sm" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
@@ -68,51 +78,57 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
+
   .post-header, .post-body, .post-footer {
     margin-bottom: 20px;
   }
-  
+
   .post-header h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
   }
-  
+
   .post-header .post-tag {
     font-size: 1.2em;
-    color: darkgray;
+    color: black;
   }
-  
+
   .post-body p {
     font-size: 1.2em;
   }
-  
+
   .post-footer .likes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-footer .likes .like-count {
     display: flex;
     align-items: center;
   }
-  
-  .post-footer .likes i {
-    margin-right: 10px;
+
+  .post-footer .likes .like-button {
+    margin-top: 10px;
   }
-  
-  .post-footer .likes .like-count {
-    margin-right: 1rem;
+
+  .post-footer .d-flex {
+    justify-content: space-between;
   }
-  
+
   .post-footer .actions a {
     margin-left: 0;
   }
-  
+
   .comments-section {
     margin-top: 40px;
   }
-  
+
   .comments-section h4 {
     font-size: 1.5em;
     margin-bottom: 20px;
   }
-  
+
   .comment {
     margin-bottom: 10px;
     padding: 10px;
@@ -120,23 +136,23 @@
     border: 1px solid lightgray;
     border-radius: 5px;
   }
-  
+
   .comment p {
     margin: 0;
   }
-  
+
   .comment-user {
     font-weight: bold;
   }
-  
+
   .comment-content {
     margin-top: 5px;
   }
-  
+
   .new-comment-form {
     margin-top: 20px;
   }
-  
+
   .new-comment-form .field,
   .new-comment-form .actions {
     margin-bottom: 10px;

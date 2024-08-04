@@ -3,7 +3,7 @@
 <%= form_with model: @post, local: true do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <h4><%= pluralize(@post.errors.count, "件") %> のエラーがあります</h4>
 
       <ul>
         <% @post.errors.full_messages.each do |message| %>
@@ -17,7 +17,7 @@
     <%= f.label :title, "バンド名" %>
     <%= f.text_field :title, class: "form-control" %>
   </div>
-  
+
   <div class="form-group small-field">
     <%= f.label :tag, "タグ" %>
     <%= f.select :tag, Post.tags.keys.map { |tag| [tag, tag] }, { include_blank: "タグを選択してください" }, class: "form-control" %>

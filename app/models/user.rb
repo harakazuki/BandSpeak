@@ -8,5 +8,5 @@ class User < ApplicationRecord
   end
   validates :name, presence: true, uniqueness: true
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, authentication_keys: [:name]
 end

@@ -9,6 +9,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
   end
 
   def new
@@ -39,7 +40,7 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to posts_path, notice: '投稿を削除しました。'
   end
-  
+
   def search
    @posts = Post.all
 
@@ -53,7 +54,7 @@ class PostsController < ApplicationController
 
     render :search
   end
-  
+
   private
 
     def set_post

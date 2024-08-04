@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get '/about' => 'homes#about'
   get '/top' => 'homes#top'
   resources :posts do
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :edit, :update, :destroy]
     resources :likes, only: [:create, :destroy]
     collection do
       get 'search'
