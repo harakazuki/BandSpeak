@@ -4,12 +4,17 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    @posts = @posts.where("title LIKE ?", "%#{params[:query]}%") if params[:query].present?
+    if params[:query].present?
+      @posts = @posts.where("title LIKE ? OR body LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    end
     @posts = @posts.where(tag: params[:tag]) if params[:tag].present?
+    @posts = @posts.page(params[:page]).per(5)
   end
 
   def show
     @comment = Comment.new
+    @comment = @post.comments
+    @comments = @post.comments.page(params[:page]).per(5)
   end
 
   def new
@@ -42,15 +47,17 @@ class PostsController < ApplicationController
   end
 
   def search
-   @posts = Post.all
+    @posts = Post.all
 
     if params[:tag].present?
       @posts = @posts.where(tag: Post.tags[params[:tag]])
     end
 
     if params[:query].present?
-      @posts = @posts.where("title LIKE ?", "%#{params[:query]}%")
+      @posts = @posts.where("title LIKE ? OR body LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
     end
+
+    @posts = @posts.page(params[:page]).per(5) 
 
     render :search
   end
@@ -64,5 +71,5 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:title, :body, :link, :tag)
     end
-
+    
 end

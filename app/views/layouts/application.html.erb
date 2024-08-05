@@ -23,9 +23,6 @@
             <ul class="navbar-nav me-auto">
               <% if user_signed_in? %>
                 <li class="nav-item">
-                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-light" %>
-                </li>
-                <li class="nav-item">
                   <%= link_to '新規投稿', new_post_path, class: "nav-link text-light" %>
                 </li>
                 <li class="nav-item">
@@ -40,7 +37,16 @@
                 <li class="nav-item">
                   <%= link_to 'アバウト', about_path, class: "nav-link text-light" %>
                 </li>
+                <li class="nav-item">
+                  <%= link_to 'トップ', top_path, class: "nav-link text-light" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-light" %>
+                </li>
               <% else %>
+                <li class="nav-item">
+                  <%= link_to 'トップ', top_path, class: "nav-link text-light" %>
+                </li>
                 <li class="nav-item">
                   <%= link_to "新規登録", new_user_registration_path, class: "nav-link text-light" %>
                 </li>
@@ -55,10 +61,20 @@
     </header>
     <main>
       <div class="container">
+        <% if notice %>
+          <div class="alert alert-success" role="alert">
+            <%= notice %>
+          </div>
+        <% end %>
+        <% if alert %>
+          <div class="alert alert-danger" role="alert">
+            <%= alert %>
+          </div>
+        <% end %>
         <%= yield %>
       </div>
     </main>
-    
+
     <footer class="bg-dark text-white pt-5 pb-4">
     </footer>
   </body>

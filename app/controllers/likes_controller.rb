@@ -1,21 +1,23 @@
 class LikesController < ApplicationController
   before_action :find_post
 
+  def li
+    @posts = current_user.liked_posts.page(params[:page]).per(5)
+  end
+
   def create
-    if already_liked?
-      flash[:notice] = "You can't like more than once"
-    else
-      @post.likes.create(user_id: current_user.id)
-    end
+    @post.likes.create(user_id: current_user.id)
+    flash[:notice] = "イイねしました。"
     redirect_to post_path(@post)
   end
 
   def destroy
     if !(already_liked?)
-      flash[:notice] = "Cannot unlike"
+      flash[:notice] = "イイねを解除できませんでした。"
     else
-      @like = @post.likes.find(params[:id])
+      @like = @post.likes.find_by(user_id: current_user.id)
       @like.destroy
+      flash[:notice] = "イイねを解除しました。"
     end
     redirect_to post_path(@post)
   end
@@ -27,7 +29,6 @@ class LikesController < ApplicationController
   end
 
   def already_liked?
-    Like.where(user_id: current_user.id, post_id:
-    params[:post_id]).exists?
+    Like.where(user_id: current_user.id, post_id: params[:post_id]).exists?
   end
 end

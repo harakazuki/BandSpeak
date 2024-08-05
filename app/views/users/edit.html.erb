@@ -1,22 +1,30 @@
-<h1>プロフィール編集</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <h4 class="mb-4 text-center">プロフィール編集</h4>
 
-<%= form_with(model: @user, local: true) do |f| %>
-  <div>
-    <%= f.label :name, "名前" %><br>
-    <%= f.text_field :name %>
-  </div>
+      <div class="border p-4 rounded bg-light">
+        <%= form_with(model: @user, local: true, class: "form-edit-profile") do |f| %>
+          <div class="mb-4">
+            <%= f.label :name, "名前", class: "form-label text-start" %>
+            <%= f.text_field :name, class: "form-control", placeholder: "名前を入力してください" %>
+          </div>
 
-  <div>
-    <%= f.label :email, "メールアドレス" %><br>
-    <%= f.email_field :email %>
-  </div>
+          <div class="mb-4">
+            <%= f.label :email, "メールアドレス", class: "form-label text-start" %>
+            <%= f.email_field :email, class: "form-control", placeholder: "メールアドレスを入力してください" %>
+          </div>
 
-  <div>
-    <%= f.label :bio, "自己紹介文" %><br>
-    <%= f.text_area :bio %>
-  </div>
+          <div class="mb-4">
+            <%= f.label :bio, "自己紹介文", class: "form-label text-start" %>
+            <%= f.text_area :bio, class: "form-control", rows: 5, placeholder: "自己紹介文を入力してください" %>
+          </div>
 
-  <div>
-    <%= f.submit "更新" %>
+          <div class="mb-3 text-center">
+            <%= f.submit "更新", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>

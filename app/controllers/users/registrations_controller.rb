@@ -8,11 +8,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def new
   #   super
   # end
-
+  
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super do |resource|
+      if resource.persisted?
+      else
+        flash[:alert] = "サインアップに失敗しました。"
+      end
+    end
+  end
 
   # GET /resource/edit
   # def edit

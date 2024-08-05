@@ -1,4 +1,4 @@
-<h1 class="mb-4">ユーザー一覧</h1>
+<h2 class="mb-4">ユーザー一覧</h2>
 
 <div class="table-responsive">
   <table class="table table-striped table-bordered">
@@ -19,4 +19,8 @@
       <% end %>
     </tbody>
   </table>
+</div>
+
+<div class="pagination-links">
+  <%= paginate @users %>
 </div>

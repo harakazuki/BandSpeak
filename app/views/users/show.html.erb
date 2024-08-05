@@ -1,9 +1,6 @@
-<div>
-  <%= flash[:notice] %>
-</div>
 <div class="container mt-5">
   <div class="profile-header mb-4">
-    <h3><%= @user.name %> さん</h3>
+    <h2><%= @user.name %> さん</h2>
 
     <h6 class="bio-title mb-2">自己紹介</h6>
     <div class="bio-section mb-4">
@@ -24,7 +21,8 @@
   </div>
 
   <div class="recommended-bands">
-    <h4 class="mb-4">おすすめのバンド</h4>
+  <h4 class="mb-4">おすすめのバンド</h4>
+  <% if @posts.any? %>
     <ul class="list-unstyled">
       <% @posts.each do |post| %>
         <li class="mb-3 p-3 border rounded bg-light">
@@ -37,7 +35,9 @@
     <div class="pagination-links">
       <%= paginate @posts %>
     </div>
-  </div>
+  <% else %>
+    <p style="color: black;">まだおすすめのバンドがありません。</p>
+  <% end %>
 
   <div class="mt-4">
     <%= link_to '戻る', users_path, class: "btn btn-secondary" %>
@@ -70,9 +70,9 @@
   }
 
   .profile-header .btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: #000;
+    background-color: yellow;
+    border-color: yellow;
+    color:black;
   }
 
   .profile-header .btn-secondary {

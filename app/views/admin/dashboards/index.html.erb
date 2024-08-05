@@ -14,7 +14,7 @@
     </ul>
 
     <div class="pagination">
-      <%= paginate @users, params: { user_page: params[:user_page] } %>
+      <%= paginate @users, param_name: :user_page %>
     </div>
   </div>
 </div>
@@ -33,10 +33,51 @@
     </ul>
 
     <div class="pagination">
-      <%= paginate @comments, params: { comment_page: params[:comment_page] } %>
+      <%= paginate @comments, param_name: :comment_page %>
     </div>
   </div>
 </div>
+
+<style>
+  .management-section {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+  }
+
+  h1, h2 {
+    text-align: center;
+  }
+
+  .user-list, .comment-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .user-item, .comment-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+  .user-item {
+    background-color: #f9f9f9;
+  }
+
+  .comment-item {
+    background-color: #f1f1f1;
+  }
+
+  .pagination {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .btn-danger {
+    margin-left: 10px;
+  }
+</style>
 
 <style>
   .management-section {

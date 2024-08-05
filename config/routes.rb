@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'dashboards', to: 'dashboards#index'
     resources :users, only: [:destroy]
-    resources :comments, only: [:index, :destroy]
+    resources :comments, only: [:destroy]
   end
   
   devise_for :users
@@ -17,12 +17,12 @@ Rails.application.routes.draw do
   get '/top' => 'homes#top'
   resources :posts do
     resources :comments, only: [:create, :edit, :update, :destroy]
-    resources :likes, only: [:create, :destroy]
+    resources :likes, only: [:index, :create, :destroy]
     collection do
       get 'search'
     end
   end
-  resources :users, only: [:index, :show, :edit, :update] do
+  resources :users, only: [:index, :likes, :show, :edit, :update] do
     member do
       get :likes
     end

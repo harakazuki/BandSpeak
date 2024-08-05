@@ -9,9 +9,22 @@ ja:
         record_invalid: "入力内容に問題があります。"
         restricted: "このフィールドは制限されています。"
         url: "は有効なURLでなければなりません"
+        taken: "はすでに使用されています"
+        confirmation: "が一致しません"
     attributes:
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password_confirmation: "パスワード"
       post:
         title: "バンド名"
         body: "おすすめの曲、特徴など"
         link: "YouTube公式chリンク"
         tag: "タグ"
+  views:
+    pagination:
+      first: "最初"
+      last: "最後"
+      previous: "« 前"
+      next: "次 »"
+      truncate: "..."
