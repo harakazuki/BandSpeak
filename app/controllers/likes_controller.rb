@@ -1,7 +1,7 @@
 class LikesController < ApplicationController
   before_action :find_post
 
-  def li
+  def like
     @posts = current_user.liked_posts.page(params[:page]).per(5)
   end
 

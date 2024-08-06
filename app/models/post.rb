@@ -13,4 +13,17 @@ class Post <  ApplicationRecord
   def self.tag_options
     tags.keys.map { |tag| [tag, tag] }
   end
+  
+  scope :search, ->(query) {
+    return all if query.blank?
+
+    keyword = "%#{query}%"
+    where('title LIKE ? OR body LIKE ?', keyword, keyword)
+  }
+
+  scope :with_tag, ->(tag) {
+    return all if tag.blank?
+
+    where(tag: tags[tag])
+  }
 end

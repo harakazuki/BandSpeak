@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
 before_action :authenticate_user!
   before_action :set_post
   before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :authorize_comment, only: [:edit, :update, :destroy]
 
   def create
     @comment = @post.comments.new(comment_params)
@@ -11,6 +12,7 @@ before_action :authenticate_user!
       redirect_to @post, notice: 'コメントしました。'
     else
       redirect_to @post, alert: 'コメントに失敗しました。'
+      render 'posts/show'
     end
   end
 
@@ -42,5 +44,9 @@ before_action :authenticate_user!
 
   def comment_params
     params.require(:comment).permit(:content)
+  end
+  
+  def authorize_comment
+    redirect_to @post, alert: '権限がありません。' unless @comment.user == current_user
   end
 end

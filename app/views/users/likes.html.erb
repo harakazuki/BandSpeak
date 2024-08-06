@@ -1,8 +1,8 @@
-<h1>いいねした投稿</h1>
+<h4>いいねした投稿</h4>
 
-<% if @posts.present? %>
+<% if @liked_posts.present? %>
   <ul class="list-unstyled">
-    <% @posts.each do |post| %>
+    <% @liked_posts.each do |post| %>
       <li class="post-item mb-4 p-3 border rounded">
         <%= link_to post.title, post, class: "h4 text-dark" %>
         <p>タグ：<%= post.tag %></p>
@@ -20,10 +20,11 @@
       </li>
     <% end %>
   </ul>
-  <%= paginate @posts %>
+  <%= paginate @liked_posts %>
 <% else %>
   <p>いいねした投稿がありません。</p>
 <% end %>
+
 
 <style>
 .page-title {

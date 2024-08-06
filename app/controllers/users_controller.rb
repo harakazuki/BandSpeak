@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-   before_action :authenticate_user!, only: [:edit, :update]
+   before_action :authenticate_user!, only: [:edit, :update, :index, :show]
    before_action :guest, only: [:edit, :update]
   
   def index
@@ -25,7 +25,8 @@ class UsersController < ApplicationController
   end
   
   def likes
-    @liked_posts = current_user.liked_posts
+    @user = User.find(params[:id])
+    @liked_posts = @user.liked_posts.page(params[:page]).per(10)
   end
   
   

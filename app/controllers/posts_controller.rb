@@ -55,6 +55,7 @@ class PostsController < ApplicationController
 
     if params[:query].present?
       @posts = @posts.where("title LIKE ? OR body LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+      Rails.logger.info "Query SQL: #{@posts.to_sql}" # SQLクエリをログに出力
     end
 
     @posts = @posts.page(params[:page]).per(5) 
