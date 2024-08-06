@@ -13,7 +13,7 @@ ja:
         confirmation: "が一致しません"
     attributes:
       user:
-        name: "名前"
+        name: "ユーザーネーム"
         email: "メールアドレス"
         password_confirmation: "パスワード"
       post:
