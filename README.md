@@ -17,9 +17,7 @@
 ・自分のバンドを広めたい時  
 ・自分の好きなバンドを広めたい時  
 ・新しいバンドを探したい時  
-## 設計書
 
-​
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
