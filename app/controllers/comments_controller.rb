@@ -12,7 +12,6 @@ before_action :authenticate_user!
       redirect_to @post, notice: 'コメントしました。'
     else
       redirect_to @post, alert: 'コメントに失敗しました。'
-      render 'posts/show'
     end
   end
 
