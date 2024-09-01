@@ -5,8 +5,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'dashboards', to: 'dashboards#index'
-    resources :users, only: [:destroy]
-    resources :comments, only: [:destroy]
+    resources :users, only: [:destroy, :index]
+    resources :comments, only: [:destroy, :index]
+    resources :posts, only: [:destroy, :index]
   end
 
   devise_for :users
