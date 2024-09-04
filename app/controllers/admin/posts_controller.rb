@@ -4,6 +4,19 @@ class Admin::PostsController < ApplicationController
     @posts = Post.all.page(params[:page]).per(10)
   end
   
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to admin_posts_path, notice: '投稿を更新しました。'
+    else
+      render :edit
+    end
+  end
+  
   def destroy
     @post = Post.find(params[:id])
     @post.destroy

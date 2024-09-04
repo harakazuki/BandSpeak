@@ -26,17 +26,21 @@
           </div>
         </div>
       </nav>
-    </header>
-  <% if notice %>
-    <div class="alert alert-success" role="alert">
-      <%= notice %>
-    </div>
-  <% end %>
-  <% if alert %>
-    <div class="alert alert-danger" role="alert">
-      <%= alert %>
-    </div>
-  <% end %>
-  <%= yield %>
-</body>
+  </header>
+  <main>
+    <% if notice %>
+      <div class="alert alert-success" role="alert">
+         <%= notice %>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-danger" role="alert">
+        <%= alert %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </main>
+
+  <footer class="bg-dark text-white pt-5 pb-4">
+  </footer>
 </html>
