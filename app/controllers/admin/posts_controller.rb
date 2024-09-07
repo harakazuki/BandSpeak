@@ -11,7 +11,7 @@ class Admin::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to admin_posts_path, notice: '投稿を更新しました。'
+      redirect_to edit_admin_post_path(@post), notice: '投稿を更新しました。'
     else
       render :edit
     end

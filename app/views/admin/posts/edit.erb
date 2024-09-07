@@ -1,0 +1,29 @@
+<h1>投稿の編集</h1>
+
+<%= form_with model: [:admin, @post], local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body, "内容" %>
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :link, "リンク" %>
+    <%= f.text_field :link, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :tag, "タグ" %>
+    <%= f.select :tag, Post.tag_options, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit '更新', class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', admin_posts_path, class: "btn btn-secondary" %>
