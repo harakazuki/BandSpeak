@@ -1,4 +1,5 @@
 <h1>管理ダッシュボード</h1>
+<%= link_to 'コメント管理', admin_comments_path, class: 'btn btn-primary' %>
 
 <div class="management-section">
   <h2>ユーザー管理</h2>
@@ -19,24 +20,7 @@
   </div>
 </div>
 
-<div class="management-section">
-  <h2>コメント管理</h2>
-  <div class="comment-list-container">
-    <ul class="comment-list">
-      <% @comments.each do |comment| %>
-        <li class="comment-item">
-          <p><strong>投稿者:</strong> <%= comment.user.name %></p>
-          <p><strong>内容:</strong> <%= comment.content %></p>
-          <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-        </li>
-      <% end %>
-    </ul>
 
-    <div class="pagination">
-      <%= paginate @comments, param_name: :comment_page %>
-    </div>
-  </div>
-</div>
 
 <style>
   .management-section {

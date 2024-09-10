@@ -3,13 +3,17 @@ class Admin::CommentsController < ApplicationController
   before_action :authenticate_admin!
   
   def index
-    @comments = Comment.page(params[:page]).per(10)
+    @comments = Comment.includes(:user, :post).order(created_at: :desc).page(params[:page]).per(10)
+  end
+  
+  def edit
+    @comment = Comment.find(params[:id])
   end
   
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to admin_dashboards_path, notice: 'コメントが削除されました。'
+    redirect_to admin_comments_path, notice: 'コメントが削除されました。'
   end
     
   private
