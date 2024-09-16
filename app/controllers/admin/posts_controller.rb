@@ -1,6 +1,6 @@
 class Admin::PostsController < ApplicationController
   layout 'admin'
-  #before_action :authenticate_admin!
+  before_action :authenticate_admin!
   def index
     @posts = Post.all.page(params[:page]).per(10)
   end

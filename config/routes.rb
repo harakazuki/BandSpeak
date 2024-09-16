@@ -5,8 +5,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :dashboards, only: [:index]
-    resources :users, only: [:destroy, :index, :edit, :update]
-    resources :comments, only: [:destroy, :index, :edit, :update]
+    resources :users, only: [:index, :edit, :update, :destroy]
+    resources :comments, only: [:index, :edit, :update, :destroy]
     resources :posts, only: [:index, :edit, :update, :destroy]
   end
 
