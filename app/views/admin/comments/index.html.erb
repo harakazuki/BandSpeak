@@ -17,16 +17,16 @@
       <tr>
         <td><%= comment.id %></td>
         <td><%= link_to comment.post.title, admin_post_path(comment.post) %></td>
-        <td><%= comment.body %></td>
+        <td><%= comment.content %></td>
         <td><%= comment.user.name %></td>
         <td><%= comment.created_at.strftime('%Y-%m-%d %H:%M') %></td>
         <td>
           <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
         </td>
       </tr>
-      <%= link_to 'ダッシュボードに戻る', admin_dashboards_path %>
     <% end %>
   </tbody>
 </table>
+<%= link_to 'ダッシュボードに戻る', admin_dashboards_path %>
 
 <%= paginate @comments %>
