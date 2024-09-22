@@ -1,4 +1,4 @@
-<%= form_with(model: [@post, @comment], local: true) do |form| %>
+<%= form_with(model: [:admin, @comment], local: true) do |form| %>
   <h4>コメントの編集</h4>
 
   <div class="form-group">
@@ -8,6 +8,6 @@
 
   <div class="form-group">
     <%= form.submit '更新する', class: 'btn btn-primary' %>
-    <%= link_to '戻る', post_path(@post), class: 'btn btn-secondary' %>
+    <%= link_to '戻る', admin_comments_path, class: 'btn btn-secondary' %>
   </div>
 <% end %>

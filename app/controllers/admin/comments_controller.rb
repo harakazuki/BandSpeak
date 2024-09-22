@@ -9,10 +9,25 @@ class Admin::CommentsController < ApplicationController
   def edit
     @comment = Comment.find(params[:id])
   end
-
+  
+  def update
+    @comment = Comment.find(params[:id])
+    if @comment.update(comment_params)
+      redirect_to edit_admin_comment_path(@comment), notice: '投稿を更新しました。'
+    else
+      render :edit
+    end
+  end
+  
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
     redirect_to admin_comments_path, notice: 'コメントが削除されました。'
+  end
+  
+  private
+  
+  def comment_params
+    params.require(:comment).permit(:content)
   end
 end
