@@ -1,33 +1,35 @@
-
 <h2>コメント管理</h2>
 
-<table class="table table-bordered">
-  <thead>
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
     <tr>
       <th>ID</th>
       <th>投稿タイトル</th>
       <th>コメント内容</th>
       <th>コメント投稿者</th>
       <th>投稿日時</th>
-      <th>操作</th>
+      <th>アクション</th>
     </tr>
   </thead>
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
         <td><%= comment.id %></td>
-        <td><%= link_to comment.post.title, admin_post_path(comment.post) %></td>
+        <td><%= link_to comment.post.title, admin_post_path(comment.post), class: 'text-primary' %></td>
         <td><%= comment.content %></td>
         <td><%= comment.user.name %></td>
         <td><%= comment.created_at.strftime('%Y-%m-%d %H:%M') %></td>
         <td>
-          <%= link_to '編集', edit_admin_comment_path(comment) %>
-          <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+          <%= link_to '編集', edit_admin_comment_path(comment), class: 'btn btn-warning btn-sm mr-2' %>
+          <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'ダッシュボードに戻る', admin_dashboards_path %>
+
+<div class="mt-4">
+  <%= link_to 'ダッシュボードに戻る', admin_dashboards_path, class: 'btn btn-secondary' %>
+</div>
 
 <%= paginate @comments %>
