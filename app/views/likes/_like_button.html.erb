@@ -1,0 +1,3 @@
+<%= button_to post_likes_path(post), method: :post, remote: true, class: 'like-button' do %>
+  <i class="fa fa-heart"></i> Like (<%= post.likes.count %>)
+<% end %>

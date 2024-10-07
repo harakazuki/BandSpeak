@@ -6,20 +6,14 @@ class LikesController < ApplicationController
   end
 
   def create
-    @post.likes.create(user_id: current_user.id)
-    flash[:notice] = "イイねしました。"
-    redirect_to post_path(@post)
+    @like = @post.likes.create(user: current_user)
+    render json: { post_id: @post.id, like_count: @post.likes.count, button_html: render_to_string(partial: 'likes/like_button', locals: { post: @post }) }
   end
 
   def destroy
-    if !(already_liked?)
-      flash[:notice] = "イイねを解除できませんでした。"
-    else
-      @like = @post.likes.find_by(user_id: current_user.id)
-      @like.destroy
-      flash[:notice] = "イイねを解除しました。"
-    end
-    redirect_to post_path(@post)
+    @like = @post.likes.find_by(user: current_user)
+    @like.destroy if @like
+    render json: { post_id: @post.id, like_count: @post.likes.count, button_html: render_to_string(partial: 'likes/like_button', locals: { post: @post }) }
   end
 
   private
