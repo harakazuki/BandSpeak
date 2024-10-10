@@ -22,18 +22,10 @@
       <div class="like-count">
         <i class="fa-solid fa-thumbs-up"></i><span class="ms-2"><%= @post.likes.count %></span>
       </div>
-      <div class="like-button mt-2">
-        <% if @post.likes.where(user_id: current_user.id).exists? %>
-          <%= link_to post_like_path(@post, @post.likes.where(user_id: current_user.id).first), method: :delete, class: "btn btn-link p-0" do %>
-            <i class="fa-solid fa-thumbs-up"></i>イイねを解除
-          <% end %>
-        <% else %>
-          <%= link_to post_likes_path(@post), method: :post, class: "btn btn-link p-0" do %>
-            <i class="fa-solid fa-thumbs-up"></i>イイね！
-          <% end %>
-        <% end %>
+      <%= button_to post_likes_path(@post), method: :post, remote: true, class: 'like-button btn btn-link' do %>
+        <i class="fa fa-heart"></i> イイね (<%= @post.likes.count %>)
+      <% end %>
       </div>
-    </div>
     <div class="actions">
       <% if @post.user == current_user %>
         <%= link_to '編集', edit_post_path(@post), class: "btn btn-warning me-2" %>

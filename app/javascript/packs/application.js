@@ -21,15 +21,19 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.like-button').forEach(button => {
-    button.addEventListener('click', event => {
+/*global fetch*/
+
+document.addEventListener('turbolinks:load', () => {
+  document.querySelectorAll('.like-button form').forEach(form => {
+    form.addEventListener('submit', event => {
       event.preventDefault();
 
-      const form = button.closest('form');
+      const likeButton = form.querySelector('button');
+      const action = form.action;
+      const method = form.querySelector('input[name="_method"]') ? 'DELETE' : 'POST'; // DELETE method if "_method" is present
 
-      fetch(form.action, {
-        method: 'POST',
+      fetch(action, {
+        method: method,
         headers: {
           'X-CSRF-Token': form.querySelector('input[name="authenticity_token"]').value,
           'Content-Type': 'application/json'
@@ -38,8 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(response => response.json())
       .then(data => {
-        button.innerHTML = data.button_html; 
-        const likeCount = button.querySelector('.like-count');
+        likeButton.innerHTML = data.button_html;
+        const likeCount = likeButton.querySelector('.like-count');
         if (likeCount) {
           likeCount.innerText = data.like_count;
         }
