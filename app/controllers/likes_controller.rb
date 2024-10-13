@@ -1,23 +1,25 @@
 class LikesController < ApplicationController
   before_action :find_post
 
+  def like
+    @posts = current_user.liked_posts.page(params[:page]).per(5)
+  end
+
   def create
-    unless already_liked?
-      @like = @post.likes.create(user: current_user)
-      render json: { post_id: @post.id, like_count: @post.likes.count, button_html: render_to_string(partial: 'likes/like_button', locals: { post: @post }) }
-    else
-      render json: { error: 'You have already liked this post' }, status: :unprocessable_entity
-    end
+    @post.likes.create(user_id: current_user.id)
+    flash[:notice] = "イイねしました。"
+    redirect_to post_path(@post)
   end
 
   def destroy
-    @like = @post.likes.find_by(user: current_user)
-    if @like
-      @like.destroy
-      render json: { post_id: @post.id, like_count: @post.likes.count, button_html: render_to_string(partial: 'likes/like_button', locals: { post: @post }) }
+    if !(already_liked?)
+      flash[:notice] = "イイねを解除できませんでした。"
     else
-      render json: { error: 'Like not found' }, status: :unprocessable_entity
+      @like = @post.likes.find_by(user_id: current_user.id)
+      @like.destroy
+      flash[:notice] = "イイねを解除しました。"
     end
+    redirect_to post_path(@post)
   end
 
   private
@@ -27,6 +29,6 @@ class LikesController < ApplicationController
   end
 
   def already_liked?
-    Like.exists?(user_id: current_user.id, post_id: @post.id)
+    Like.where(user_id: current_user.id, post_id: params[:post_id]).exists?
   end
 end
