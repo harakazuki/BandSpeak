@@ -8,7 +8,7 @@ class LikesController < ApplicationController
   def create
     @post.likes.create(user_id: current_user.id)
     flash[:notice] = "イイねしました。"
-    redirect_to post_path(@post)
+    #redirect_to post_path(@post)
   end
 
   def destroy
@@ -19,7 +19,7 @@ class LikesController < ApplicationController
       @like.destroy
       flash[:notice] = "イイねを解除しました。"
     end
-    redirect_to post_path(@post)
+    #redirect_to post_path(@post)
   end
 
   private
