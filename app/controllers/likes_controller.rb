@@ -6,29 +6,24 @@ class LikesController < ApplicationController
   end
 
   def create
-    @post.likes.create(user_id: current_user.id)
-    flash[:notice] = "イイねしました。"
-    #redirect_to post_path(@post)
-  end
+  like = @post.likes.new(user: current_user)
 
-  def destroy
-    if !(already_liked?)
-      flash[:notice] = "イイねを解除できませんでした。"
-    else
-      @like = @post.likes.find_by(user_id: current_user.id)
-      @like.destroy
-      flash[:notice] = "イイねを解除しました。"
+  if like.save
+    respond_to do |format|
+      format.html { redirect_to @post, notice: 'いいねしました。' }
+      format.js
     end
-    #redirect_to post_path(@post)
+  else
+    respond_to do |format|
+      format.html { redirect_to @post, alert: 'いいねの追加に失敗しました。' }
+      format.js { render js: "alert('いいねの追加に失敗しました。');" }
+    end
+  end
   end
 
   private
 
   def find_post
     @post = Post.find(params[:post_id])
-  end
-
-  def already_liked?
-    Like.where(user_id: current_user.id, post_id: params[:post_id]).exists?
   end
 end

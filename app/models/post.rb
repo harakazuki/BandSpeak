@@ -14,6 +14,10 @@ class Post <  ApplicationRecord
     tags.keys.map { |tag| [tag, tag] }
   end
   
+  def like_ids_by?(user)
+    likes.exists?(user_id: user.id)
+  end
+  
   scope :search, ->(query) {
     return all if query.blank?
 
