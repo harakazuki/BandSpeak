@@ -1,11 +1,14 @@
 <div id="like-button-<%= post.id %>">
   <% if post.like_ids_by?(current_user) %>
     <%= link_to post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, remote: true do %>
-      ♡<%= post.likes.count %> いいね
+      イイね解除 <i class="fa-solid fa-thumbs-up"></i>
     <% end %>
   <% else %>
     <%= link_to post_likes_path(post), method: :post, remote: true do %>
-      ♡<%= post.likes.count %> いいね
+      イイね <i class="fa-regular fa-thumbs-up"></i>
     <% end %>
   <% end %>
+  <span id="like-count-<%= post.id %>">
+    <%= post.likes.count %> <i class="fa-solid fa-thumbs-up"></i>
+  </span>
 </div>
