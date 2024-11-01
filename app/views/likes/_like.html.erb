@@ -1,14 +1,15 @@
-<div id="like-button-<%= post.id %>">
+<div id="like-button-<%= post.id %>" class="d-flex align-items-center mt-3">
   <% if post.like_ids_by?(current_user) %>
-    <%= link_to post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, remote: true do %>
-      イイね解除 <i class="fa-solid fa-thumbs-up"></i>
+    <%= link_to post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, remote: true, class: "btn btn-danger me-3 d-flex align-items-center" do %>
+      イイね解除 <i class="fa-solid fa-thumbs-up ms-1"></i>
     <% end %>
   <% else %>
-    <%= link_to post_likes_path(post), method: :post, remote: true do %>
-      イイね <i class="fa-regular fa-thumbs-up"></i>
+    <%= link_to post_likes_path(post), method: :post, remote: true, class: "btn btn-primary me-3 d-flex align-items-center" do %>
+      イイね <i class="fa-regular fa-thumbs-up ms-1"></i>
     <% end %>
   <% end %>
-  <span id="like-count-<%= post.id %>">
-    <i class="fa-solid fa-thumbs-up"></i> <%= post.likes.count %>
+
+  <span id="like-count-<%= post.id %>" class="badge bg-secondary d-flex align-items-center" style="font-size: 1.2em; padding: 0.4em 0.6em;">
+    <i class="fa-solid fa-thumbs-up me-1"></i> <%= post.likes.count %>
   </span>
 </div>
