@@ -44,7 +44,7 @@
     <% end %>
     <h4 class="mb-4">コメント一覧</h4>
       <% if @post.comments.empty? %>
-        <p>まだコメントがありません。</p>
+        <p>コメントがありません。</p>
       <% else %>
         <% @post.comments.each do |comment| %>
           <div class="comment mb-3 p-3 bg-white border rounded">

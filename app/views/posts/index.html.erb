@@ -15,18 +15,23 @@
     <% @posts.each do |post| %>
       <div class="post-item mb-4 p-3 border rounded">
         <%= link_to post.title, post, class: "h4 text-dark" %>
+
+        <p class="mt-2"><%= post.body %></p>
+
         <p>タグ：<%= post.tag %></p>
-        
+
+        <p>コメント件数: <%= post.comments.count %>件</p>
+
         <% if post.link.present? %>
           <%= link_to post.link, target: "_blank", rel: "noopener noreferrer", class: "text-primary" do %>
             <i class="fab fa-youtube"></i> YouTube公式ch
           <% end %>
         <% end %>
-        
+
         <div class="like-section mt-2">
           <%= render "likes/like", post: post %>
         </div>
-        
+
         <% if post.user == current_user %>
           <div class="actions mt-2">
             <%= link_to '編集', edit_post_path(post), class: "btn btn-warning btn-sm" %>
@@ -41,5 +46,3 @@
     <p>投稿がありません。</p>
   <% end %>
 </div>
-
-
