@@ -4,11 +4,15 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
-    resources :dashboards, only: [:index]
-    resources :users, only: [:index, :edit, :update, :destroy]
-    resources :comments, only: [:index, :edit, :update, :destroy]
-    resources :posts, only: [:index, :edit, :update, :destroy]
+  resources :dashboards, only: [:index]
+  resources :users, only: [:index, :edit, :update, :destroy]
+  resources :comments, only: [:index, :edit, :update, :destroy] do
+    collection do
+      get 'search'
+    end
   end
+  resources :posts, only: [:index, :edit, :update, :destroy]
+end
 
   devise_for :users
   devise_scope :user do

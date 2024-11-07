@@ -15,7 +15,7 @@
     <% @posts.each do |post| %>
       <div class="post-item mb-4 p-3 border rounded">
         <%= link_to post.title, post, class: "h4 text-dark" %>
-
+        
         <p class="mt-2"><%= post.body %></p>
 
         <p>タグ：<%= post.tag %></p>

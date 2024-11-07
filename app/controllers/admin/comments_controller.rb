@@ -5,6 +5,19 @@ class Admin::CommentsController < ApplicationController
   def index
     @comments = Comment.includes(:user, :post).order(created_at: :desc).page(params[:page]).per(10)
   end
+  
+  def search
+    if params[:query].present?
+      @comments = Comment.includes(:user, :post)
+                         .where("content LIKE ?", "%#{params[:query]}%")
+                         .order(created_at: :desc)
+                         .page(params[:page])
+                         .per(10)
+    else
+      @comments = Comment.includes(:user, :post).order(created_at: :desc).page(params[:page]).per(10)
+    end
+    render :index
+  end
 
   def edit
     @comment = Comment.find(params[:id])
