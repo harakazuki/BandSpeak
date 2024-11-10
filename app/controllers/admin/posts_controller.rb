@@ -4,6 +4,20 @@ class Admin::PostsController < ApplicationController
   def index
     @posts = Post.all.page(params[:page]).per(10)
   end
+  
+  def search
+    if params[:query].present?
+      @posts = Post.includes(:user)
+                   .where("title LIKE ?", "%#{params[:query]}%")
+                   .order(created_at: :desc)
+                   .page(params[:page])
+                   .per(10)
+    else
+      @posts = Post.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+    end
+    render :index
+  end
+
 
   def edit
     @post = Post.find(params[:id])
