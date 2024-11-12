@@ -24,8 +24,8 @@
         <td><%= post.title %></td>
         <td><%= post.tag %></td>
         <td><%= link_to post.link, post.link, target: '_blank', class: 'text-primary' %></td>
-        <td><%= post.user.name %></td> <!-- 投稿者の名前を表示 -->
-        <td><%= post.created_at.strftime('%Y-%m-%d %H:%M') %></td> <!-- 投稿日時を表示 -->
+        <td><%= post.user.name %></td>
+        <td><%= post.created_at.strftime('%Y-%m-%d %H:%M') %></td>
         <td>
           <%= link_to '編集', edit_admin_post_path(post), class: 'btn btn-warning btn-sm mr-2' %>
           <%= link_to '削除', admin_post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>

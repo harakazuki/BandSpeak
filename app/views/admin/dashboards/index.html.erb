@@ -1,7 +1,18 @@
 <h2 class="mb-4">管理ダッシュボード</h2>
 
 <div class="d-flex justify-content-around mb-4">
-  <%= link_to 'ユーザー管理', admin_users_path, class: 'btn btn-primary btn-lg' %>
-  <%= link_to '投稿管理', admin_posts_path, class: 'btn btn-primary btn-lg' %>
-  <%= link_to 'コメント管理', admin_comments_path, class: 'btn btn-primary btn-lg' %>
+  <div class="text-center">
+    <%= link_to 'ユーザー管理', admin_users_path, class: 'btn btn-primary btn-lg' %>
+    <p class="mt-2">ユーザー数: <%= @user_count %>件</p>
+  </div>
+  
+  <div class="text-center">
+    <%= link_to '投稿管理', admin_posts_path, class: 'btn btn-primary btn-lg' %>
+    <p class="mt-2">投稿数: <%= @post_count %>件</p>
+  </div>
+  
+  <div class="text-center">
+    <%= link_to 'コメント管理', admin_comments_path, class: 'btn btn-primary btn-lg' %>
+    <p class="mt-2">コメント数: <%= @comment_count %>件</p>
+  </div>
 </div>
