@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_03_155210) do
+ActiveRecord::Schema.define(version: 2024_11_15_141314) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 2024_08_03_155210) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.string "reportable_type", null: false
+    t.integer "reportable_id", null: false
+    t.integer "user_id", null: false
+    t.string "reason"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -74,4 +85,5 @@ ActiveRecord::Schema.define(version: 2024_08_03_155210) do
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "reports", "users"
 end
