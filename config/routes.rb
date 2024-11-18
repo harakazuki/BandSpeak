@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get 'search'
     end
   end
+  resources :reports, only: [:index, :update, :destroy]
 end
 
   devise_for :users
@@ -31,6 +32,8 @@ end
       get 'search'
     end
   end
+  
+  resources :reports, only: [:create]
 
   resources :users, only: [:index, :show, :edit, :update] do
     member do
