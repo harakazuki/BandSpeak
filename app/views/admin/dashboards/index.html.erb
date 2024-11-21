@@ -15,4 +15,8 @@
     <%= link_to 'コメント管理', admin_comments_path, class: 'btn btn-primary btn-lg' %>
     <p class="mt-2">コメント数: <%= @comment_count %>件</p>
   </div>
+  
+  <div class="text-center">
+    <%= link_to '通報一覧', admin_reports_path, class: 'btn btn-primary btn-lg' %>
+    <p class="mt-2">通報数: <%= @report_count %>件</p>
 </div>

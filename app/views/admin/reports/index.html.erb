@@ -1,0 +1,33 @@
+<h4>通報一覧</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>通報対象</th>
+      <th>ユーザー</th>
+      <th>理由</th>
+      <th>ステータス</th>
+      <th>作成日</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.id %></td>
+        <td><%= link_to report.reportable_type, report.reportable %></td>
+        <td><%= report.user.name %></td>
+        <td><%= report.reason %></td>
+        <td><%= report.status %></td>
+        <td><%= l(report.created_at) %></td>
+        <td>
+          <%= link_to '対応済みにする', admin_report_path(report, status: '対応済み'), method: :patch %>
+          <%= link_to '削除', admin_report_path(report), method: :delete, data: { confirm: '削除しますか？' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @reports %>
