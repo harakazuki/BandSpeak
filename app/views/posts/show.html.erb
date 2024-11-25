@@ -24,6 +24,8 @@
           <%= render "likes/like", post: @post %>
       </div>
       
+      <%= link_to '通報する', new_report_path(reportable_type: 'Post', reportable_id: @post.id), remote: true %>
+      
     </div>
     <div class="actions">
       <% if @post.user == current_user %>

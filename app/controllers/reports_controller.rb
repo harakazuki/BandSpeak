@@ -1,6 +1,13 @@
 class ReportsController < ApplicationController
   before_action :authenticate_user!
-
+  
+  def new
+    @report = Report.new(
+      reportable_type: params[:reportable_type],
+      reportable_id: params[:reportable_id]
+    )
+  end
+  
   def create
     reportable = find_reportable
     @report = reportable.reports.new(report_params)

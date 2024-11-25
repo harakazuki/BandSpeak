@@ -38,7 +38,7 @@ end
     end
   end
   
-  resources :reports, only: [:create]
+  resources :reports, only: [:new, :create]
 
   resources :users, only: [:index, :show, :edit, :update] do
     member do
