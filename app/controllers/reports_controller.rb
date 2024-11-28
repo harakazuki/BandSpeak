@@ -23,10 +23,8 @@ class ReportsController < ApplicationController
   private
 
   def find_reportable
+    Rails.logger.debug "Reportable Type: #{params[:reportable_type]}"
+    Rails.logger.debug "Reportable ID: #{params[:reportable_id]}"
     params[:reportable_type].constantize.find(params[:reportable_id])
-  end
-
-  def report_params
-    params.require(:report).permit(:reason)
   end
 end

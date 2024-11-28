@@ -38,7 +38,7 @@ end
     end
   end
   
-  resources :reports, only: [:new, :create]
+  resources :reports, only: [:new, :create], param: :reportable_id
 
   resources :users, only: [:index, :show, :edit, :update] do
     member do

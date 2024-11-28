@@ -15,18 +15,17 @@
     <% end %>
   </div>
 
- <div class="post-footer mb-4">
-  <p>投稿者: <%= link_to "#{@post.user.name}さん", user_path(@post.user) %></p>
-  <div class="d-flex align-items-center justify-content-between">
-    <div class="likes me-3">
-      
-      <div class="like-section mt-2">
+  <div class="post-footer mb-4">
+    <p>投稿者: <%= link_to "#{@post.user.name}さん", user_path(@post.user) %></p>
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="likes me-3">
+      <%= link_to new_report_path(reportable_type: 'Post', reportable_id: @post.id), class: 'report-link' do %>
+        <i class="fa-solid fa-triangle-exclamation"></i> 通報する
+      <% end %>
+        <div class="like-section mt-2">
           <%= render "likes/like", post: @post %>
+        </div>
       </div>
-      
-      <%= link_to '通報する', new_report_path(reportable_type: 'Post', reportable_id: @post.id), remote: true %>
-      
-    </div>
     <div class="actions">
       <% if @post.user == current_user %>
         <%= link_to '編集', edit_post_path(@post), class: "btn btn-warning me-2" %>
