@@ -1,15 +1,13 @@
 <h4>通報内容を記入してください</h4>
 
-<%= form_with model: @report, url: reports_path do |f| %>
-  <div class="field">
-    <%= f.label :reason, '通報理由' %>
+<%= form_with(model: @report, url: reports_path, method: :post) do |f| %>
+  <%= f.hidden_field :reportable_type, value: params[:reportable_type] %>
+  <%= f.hidden_field :reportable_id, value: params[:reportable_id] %>
+  <div>
+    <%= f.label :reason, "通報理由" %>
     <%= f.text_area :reason, required: true %>
   </div>
-
-  <%= f.hidden_field :reportable_type %>
-  <%= f.hidden_field :reportable_id %>
-
-  <div class="actions">
-    <%= f.submit '送信する' %>
+  <div>
+    <%= f.submit "通報する", class: "btn btn-primary" %>
   </div>
 <% end %>

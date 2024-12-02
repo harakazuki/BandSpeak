@@ -3,6 +3,7 @@ class Admin::ReportsController < ApplicationController
   def index
     @reports = Report.includes(:user, :reportable).order(created_at: :desc).page(params[:page])
   end
+  
 
   def update
     @report = Report.find(params[:id])
